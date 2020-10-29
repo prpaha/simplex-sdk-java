@@ -44,7 +44,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId "${groupId}"
 
-            artifact 'build/libs/YandexKassaSDK-0.0.3.jar'
+            artifact "build/libs/simplex-sdk-java-${libraryVersion}.jar"
         }
     }
 }

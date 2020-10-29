@@ -1,3 +1,2 @@
 rootProject.name = 'Simplex SDK'
-include 'simplex-adapter'
 

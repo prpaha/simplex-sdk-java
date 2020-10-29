@@ -43,8 +43,93 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaymentResponse'
 
+  /events:
+    get:
+      summary: GetEvents
+      operationId: GetEvents
+      description: 'This is intended only for server-originated calls. When certain changes are made to a payment, the event for that change is generated on the event queue: whether the payment is submitted, approved or declined. The app provider must read these events by polling this API and act accordingly. This API endpoint may be optional, as the app provider can follow the Blockchain in order to update the end-user’s balance.'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Events'
+
+  /events/{id}:
+    delete:
+      summary: DeleteEvent
+      operationId: DeleteEvent
+      description: The events should be removed from partner’s event queue. Should be called after partner has handled the event. No error is reported if event is not found on queue.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+
 components:
   schemas:
+    Events:
+      type: object
+      description: Events container
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+
+    Event:
+      type: object
+      description: Event
+      properties:
+        event_id:
+          type: string
+        name:
+          type: string
+        timestamp:
+          type: string
+        payment:
+          $ref: '#/components/schemas/Payment'
+
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        fiat_total_amount:
+          type: object
+          properties:
+            currency:
+              $ref: '#/components/schemas/FiatCurrencies'
+            amount:
+              type: number
+        crypto_total_amount:
+          type: object
+          properties:
+            currency:
+              $ref: '#/components/schemas/DigitalCurrencies'
+            amount:
+              type: number
+        partner_end_user_id:
+          type: string
+
     PaymentRequest:
       type: object
       description: Request for create payment

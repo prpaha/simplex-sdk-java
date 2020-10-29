@@ -6,6 +6,7 @@ plugins {
 
 apply plugin: 'org.openapi.generator'
 apply plugin: 'java-library'
+apply plugin: 'maven-publish'
 apply plugin: "io.spring.dependency-management"
 
 repositories {
@@ -25,17 +26,45 @@ repositories {
 
 ext {
     libraryVersion = '0.1-SNAPSHOT'
+    groupId = 'ru.prpaha.simplex'
     springBootVersion = project.properties['moduleSpringBootVersion'] ?: '2.1.4.RELEASE'
     springCloudVersion = project.properties['moduleSpringCloudVersion'] ?: 'Greenwich.SR1'
 }
 
-group = 'ru.prpaha.simplex'
+group = "${groupId}"
 version =  "${libraryVersion}"
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-jar {
-    enabled = true
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId "${groupId}"
+
+            artifact 'build/libs/YandexKassaSDK-0.0.3.jar'
+        }
+    }
+}
+
+configurations {
+    fatJar
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'rpi-sense-hat-lib',
+                'Implementation-Version': version
+    }
+    baseName = project.name
+    from {
+        configurations.fatJar.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
 }
 
 tasks.withType(JavaCompile) {

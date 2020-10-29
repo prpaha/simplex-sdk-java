@@ -7,6 +7,7 @@ Implementation of contract https://integrations.simplex.com/wallet-api-integrati
 Make commands in your project git workspace:
 <ul>
 <li>git submodule add https://github.com/prpaha/simplex-sdk-java.git</li>
+<li>add as gradle module: new line in file settings.gradle: include 'simplex-sdk-java'</li>
 </ul>
 </html>
 <br/>

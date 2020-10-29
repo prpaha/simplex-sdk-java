@@ -1,7 +1,61 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        maven {
+            url 'http://repo.hindsightsoftware.com/public-maven'
+        }
+        maven { url "https://repo1.maven.org/maven2" }
+    }
+
+    dependencies {
+        classpath 'org.openapitools:openapi-generator-gradle-plugin:4.3.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.openapi.generator' version '4.3.1' apply false
+}
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply plugin: 'org.openapi.generator'
 
-jar {
-    enabled = true
+repositories {
+    mavenLocal()
+    jcenter()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+    maven {
+        url "http://packages.confluent.io/maven/"
+    }
+}
+
+ext {
+    libVersion = '0.0.1'
+}
+
+version = "${libVersion}"
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId 'ru.prpaha'
+
+            artifact "build/libs/simplex-sdk-java-${libVersion}.jar"
+        }
+    }
 }
 
 compileJava.dependsOn('openApiGenerate')
@@ -28,26 +82,40 @@ openApiGenerate {
     ]
 }
 
-dependencies {
-    implementation('org.springframework.cloud:spring-cloud-starter-openfeign') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
+configurations {
+    fatJar
+}
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'rpi-sense-hat-lib',
+                'Implementation-Version': version
+    }
+    baseName = project.name
+    from {
+        configurations.fatJar.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
+}
+
+dependencies {
     // for OpenAPI generation
     implementation 'org.openapitools:openapi-generator-gradle-plugin:4.3.1'
     implementation 'com.google.code.gson:gson:2.8.5'
+    fatJar 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    fatJar 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    fatJar 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'io.gsonfire:gson-fire:1.8.4'
+    fatJar 'io.gsonfire:gson-fire:1.8.4'
 
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-}
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }

@@ -1,0 +1,3 @@
+simplex:
+  mainNet: '${SimplexMainNet:false}'
+  apiKey: '${SimplexAPIKey}'

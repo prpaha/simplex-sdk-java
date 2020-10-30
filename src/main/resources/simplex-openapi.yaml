@@ -11,6 +11,8 @@ paths:
       summary: GetQuote
       operationId: GetQuote
       description: The initial step is having the app presenting the digital currency price. A POST request is sent by the app asking for a price. Simplex REST API will receive the details listed below and respond, with an estimated price and a unique ID to mark the specific quote. In addition, specifying the payment methods in this step, will determine what payment options will be shown to the user upon the checkout.
+      security:
+        - ApiKeyAuth: []
       requestBody:
         content:
           application/json:
@@ -30,6 +32,8 @@ paths:
       operationId: PaymentRequest
       description: When an end-user agrees to a specific quote (price and amounts of fiat and crypto), the app will send a REST API Payment Request.
         The Payment Request will include the quote ID received in the previous step, in addition to a new and unique payment ID that will be used to identify this payment by the partner and by Simplex.
+      security:
+        - ApiKeyAuth: [ ]
       requestBody:
         content:
           application/json:
@@ -48,6 +52,8 @@ paths:
       summary: GetEvents
       operationId: GetEvents
       description: 'This is intended only for server-originated calls. When certain changes are made to a payment, the event for that change is generated on the event queue: whether the payment is submitted, approved or declined. The app provider must read these events by polling this API and act accordingly. This API endpoint may be optional, as the app provider can follow the Blockchain in order to update the end-user’s balance.'
+      security:
+        - ApiKeyAuth: []
       responses:
         200:
           description: Ok
@@ -61,6 +67,8 @@ paths:
       summary: DeleteEvent
       operationId: DeleteEvent
       description: The events should be removed from partner’s event queue. Should be called after partner has handled the event. No error is reported if event is not found on queue.
+      security:
+        - ApiKeyAuth: []
       parameters:
         - in: path
           name: id
@@ -79,6 +87,12 @@ paths:
                     type: string
 
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
   schemas:
     Events:
       type: object

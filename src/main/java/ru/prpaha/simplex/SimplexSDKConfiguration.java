@@ -2,6 +2,7 @@ package ru.prpaha.simplex;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ru.prpaha.simplex.api.DefaultApi;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
  * @author Proskurin Pavel (prpaha@rambler.ru)
  */
 @Configuration
+@ComponentScan("ru.prpaha.simplex")
 @PropertySource("classpath:simplex-sdk.yml")
 public class SimplexSDKConfiguration {
 

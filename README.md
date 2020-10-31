@@ -20,6 +20,22 @@ Implementation of contract https://integrations.simplex.com/wallet-api-integrati
 <li>Add environment variable <b>SimplexMainNet</b> boolean type. Default TestName (false).</li>
 </ul>
 
+<h4>Invoke methods:</h4>
+For autoconfiguration import SimplexSDKConfiguration to your Spring (@Import(SimplexSDKConfiguration.class)).
+<br/>
+Autowired bean ru.prpaha.simplex.service.SimplexService to your code. For example:
+<br/><br/>
+@Component<br/>
+class SomeClass {<br/>
+    @Autowired<br/>
+    private SimplexService simplexService;<br/>
+    <br/>
+    public void some method() {<br/>
+        simplexService.createQuote(...);
+    }<br/>
+}
+ 
+
 </html>
 <br/>
 <br/>

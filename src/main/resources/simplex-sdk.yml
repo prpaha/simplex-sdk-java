@@ -1,3 +1,4 @@
 simplex:
   mainNet: '${SimplexMainNet:false}'
   apiKey: '${SimplexAPIKey}'
+  walletId: '${WalletId:empty}'

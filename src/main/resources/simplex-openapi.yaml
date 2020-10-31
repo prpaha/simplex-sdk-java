@@ -279,7 +279,7 @@ components:
           description: Unique identifier for a user on the partner’s system
         digital_currency:
           $ref: '#/components/schemas/DigitalCurrencies'
-        fiat_currency":
+        fiat_currency:
           $ref: '#/components/schemas/FiatCurrencies'
         requested_currency:
           type: string

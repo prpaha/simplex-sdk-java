@@ -265,6 +265,7 @@ components:
           $ref: '#/components/schemas/FiatMoney'
         valid_until:
           type: string
+          format: date-time
         supported_digital_currencies:
           type: array
           items:

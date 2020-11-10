@@ -8,6 +8,8 @@ import ru.prpaha.simplex.api.DefaultApi;
 import ru.prpaha.simplex.invoker.ApiException;
 import ru.prpaha.simplex.model.GetQuoteRequest;
 import ru.prpaha.simplex.model.GetQuoteResponse;
+import ru.prpaha.simplex.model.PaymentRequest;
+import ru.prpaha.simplex.model.PaymentResponse;
 
 /**
  * @author Proskurin Pavel (prpaha@rambler.ru)
@@ -24,6 +26,10 @@ public class SimplexService {
     public GetQuoteResponse createQuote(GetQuoteRequest request) throws ApiException {
         fillWalletId(request);
         return defaultApi.getQuote(request);
+    }
+
+    public PaymentResponse createPayment(PaymentRequest request) throws ApiException {
+        return defaultApi.paymentRequest(request);
     }
 
     private void fillWalletId(GetQuoteRequest request) {

@@ -1,4 +1,4 @@
 simplex:
-  mainNet: '${SimplexMainNet:false}'
-  apiKey: '${SimplexAPIKey}'
-  walletId: '${WalletId:empty}'
+  mainNet: '${SIMPLEX_MAIN_NET:false}'
+  apiKey: '${SIMPLEX_API_KEY}'
+  walletId: '${SIMPLEX_WALLET_ID:empty}'

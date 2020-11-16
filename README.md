@@ -16,9 +16,9 @@ Implementation of contract https://integrations.simplex.com/wallet-api-integrati
 
 <h4>Library Settings:</h4>
 <ul>
-<li>Add environment variable <b>SimplexAPIKey</b> string type. API key from Simplex service. Require.</li>
-<li>Add environment variable <b>SimplexMainNet</b> boolean type. Default TestName (false).</li>
-<li>Add environment variable <b>WalletId</b> string type.</li>
+<li>Add environment variable <b>SIMPLEX_API_KEY</b> string type. API key from Simplex service. Require.</li>
+<li>Add environment variable <b>SIMPLEX_MAIN_NET</b> boolean type. Default TestName (false).</li>
+<li>Add environment variable <b>SIMPLEX_WALLET_ID</b> string type.</li>
 </ul>
 
 <h4>Invoke methods:</h4>

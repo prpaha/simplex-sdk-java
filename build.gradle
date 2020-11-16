@@ -113,7 +113,6 @@ dependencies {
     implementation 'io.gsonfire:gson-fire:1.8.4'
     fatJar 'io.gsonfire:gson-fire:1.8.4'
 
-
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 

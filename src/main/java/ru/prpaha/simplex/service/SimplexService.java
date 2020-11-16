@@ -3,6 +3,7 @@ package ru.prpaha.simplex.service;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import ru.prpaha.simplex.api.DefaultApi;
 import ru.prpaha.simplex.invoker.ApiException;
@@ -19,9 +20,7 @@ import ru.prpaha.simplex.model.PaymentResponse;
 public class SimplexService {
 
     private final DefaultApi defaultApi;
-
-    @Value("${simplex.walletId}")
-    private String walletId;
+    private final Environment env;
 
     public GetQuoteResponse createQuote(GetQuoteRequest request) throws ApiException {
         fillWalletId(request);
@@ -33,6 +32,7 @@ public class SimplexService {
     }
 
     private void fillWalletId(GetQuoteRequest request) {
+        String walletId = env.getProperty("simplex.walletId");
         if ("empty".equals(walletId)) {
             return;
         }

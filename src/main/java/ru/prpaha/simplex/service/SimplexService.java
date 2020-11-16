@@ -1,6 +1,5 @@
 package ru.prpaha.simplex.service;
 
-import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -15,13 +14,16 @@ import ru.prpaha.simplex.model.PaymentResponse;
  * @author Proskurin Pavel (prpaha@rambler.ru)
  */
 @Component
-@AllArgsConstructor
 public class SimplexService {
 
     private final DefaultApi defaultApi;
 
     @Value("${simplex.walletId}")
     private String walletId;
+
+    public SimplexService(DefaultApi defaultApi) {
+        this.defaultApi = defaultApi;
+    }
 
     public GetQuoteResponse createQuote(GetQuoteRequest request) throws ApiException {
         fillWalletId(request);

@@ -1,9 +1,11 @@
-<h1>Simplex SDK for JAVA</h1>
-Java SDK for service Simplex (https://www.simplex.com/).<br/>
-Implementation of contract https://integrations.simplex.com/wallet-api-integration.
+Simplex SDK for JAVA
+======
 
-<h2>Integration to your project</h2>
-<h3>Make commands in new project workspace:</h3>
+Java SDK for service [Simplex](https://www.simplex.com/).
+Implementation of [contract](https://integrations.simplex.com/wallet-api-integration)
+
+## Integration to your project
+### Make commands in new project workspace:
 ```shell script
 git clone https://github.com/prpaha/simplex-sdk-java.git
 cd simplex-sdk-java
@@ -16,7 +18,7 @@ Add dependency to your project, for example in gradle:
 implementation "ru.prpaha.simplex:simplex-sdk-java:0.0.1"
 ```
 
-<h3>Library Settings:</h3>
+### Library Settings:
 Add properties to your project
 ```yaml
 simplex:
@@ -25,7 +27,7 @@ simplex:
   walletId: 'walletId'
 ```
 
-<h3>Invoke methods:</h3>
+### Invoke methods:
 For autoconfiguration import SimplexSDKConfiguration to your Spring:
 ```java
 @Import(SimplexSDKConfiguration.class)

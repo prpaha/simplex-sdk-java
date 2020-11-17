@@ -25,6 +25,7 @@ simplex:
   mainNet: false
   apiKey: 'apiKey'
   walletId: 'walletId'
+  partnerName: 'partnerName'
 ```
 
 ### Invoke methods:

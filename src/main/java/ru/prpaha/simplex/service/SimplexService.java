@@ -21,6 +21,12 @@ public class SimplexService {
     @Value("${simplex.walletId}")
     private String walletId;
 
+    @Value("${simplex.partnerName}")
+    private String partnerName;
+
+    @Value("${simplex.partnerUrl}")
+    private String partnerUrl;
+
     public SimplexService(DefaultApi defaultApi) {
         this.defaultApi = defaultApi;
     }
@@ -31,7 +37,20 @@ public class SimplexService {
     }
 
     public PaymentResponse createPayment(PaymentRequest request) throws ApiException {
+        fillPartnerData(request);
         return defaultApi.paymentRequest(request);
+    }
+
+    private void fillPartnerData(PaymentRequest request) {
+        if (request.getAccountDetails() != null &&
+                StringUtils.isBlank(request.getAccountDetails().getAppProviderId())) {
+            request.getAccountDetails().appProviderId(partnerName);
+        }
+        if (request.getTransactionDetails() != null &&
+                request.getTransactionDetails().getPaymentDetails() != null &&
+                StringUtils.isBlank(request.getTransactionDetails().getPaymentDetails().getOriginalHttpRefUrl())) {
+            request.getTransactionDetails().getPaymentDetails().setOriginalHttpRefUrl(partnerUrl);
+        }
     }
 
     private void fillWalletId(GetQuoteRequest request) {

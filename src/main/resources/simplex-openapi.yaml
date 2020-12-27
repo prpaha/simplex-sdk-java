@@ -4,9 +4,12 @@ info:
   description: REST API for Simplex
   version: 2
 servers:
-  - url: /wallet/merchant/v2
+  - url: https://backend-wallet-api.simplexcc.com
+    description: Production server (uses live data)
+  - url: https://sandbox.test-simplexcc.com
+    description: Sandbox server (uses test data)
 paths:
-  /quote:
+  /wallet/merchant/v2/quote:
     post:
       summary: GetQuote
       operationId: GetQuote
@@ -26,7 +29,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetQuoteResponse'
 
-  /partner/data:
+  /wallet/merchant/v2/partner/data:
     post:
       summary: PaymentRequest
       operationId: PaymentRequest
@@ -47,7 +50,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaymentResponse'
 
-  /events:
+  /wallet/merchant/v2/events:
     get:
       summary: GetEvents
       operationId: GetEvents
@@ -62,7 +65,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Events'
 
-  /events/{id}:
+  /wallet/merchant/v2/events/{id}:
     delete:
       summary: DeleteEvent
       operationId: DeleteEvent

@@ -97,6 +97,13 @@ components:
       name: Authorization
 
   schemas:
+    Error:
+      type: object
+      description: Error
+      properties:
+        error:
+          type: string
+
     Events:
       type: object
       description: Events container

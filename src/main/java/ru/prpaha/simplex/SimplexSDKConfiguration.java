@@ -1,11 +1,15 @@
 package ru.prpaha.simplex;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.prpaha.simplex.api.DefaultApi;
 import ru.prpaha.simplex.invoker.ApiClient;
+import ru.prpaha.simplex.repository.PaymentRepository;
+import ru.prpaha.simplex.repository.QuoteRepository;
 
 import java.text.SimpleDateFormat;
 
@@ -25,6 +29,21 @@ public class SimplexSDKConfiguration {
     @Bean
     public DefaultApi defaultApi() {
         return new DefaultApi(createApiClient());
+    }
+
+    @Bean
+    public QuoteRepository quoteRepository(DefaultApi defaultApi, Gson gson) {
+        return new QuoteRepository(defaultApi, gson);
+    }
+
+    @Bean
+    public PaymentRepository paymentRepository(DefaultApi defaultApi, Gson gson) {
+        return new PaymentRepository(defaultApi, gson);
+    }
+
+    @Bean
+    public Gson gson() {
+        return new GsonBuilder().setDateFormat(SimplexConstants.DATE_TIME_FORMAT).create();
     }
 
     private ApiClient createApiClient() {

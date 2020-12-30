@@ -15,7 +15,7 @@ public class FormService {
 
     private static final String FORM_FILE = "transaction-payment-form-auto-send.html";
     private static final String PARAM_BASE_URL = "#{form_url}";
-    private static final String PARAM_PARTNER_NAME = "#{partner_name}";
+    private static final String PARAM_WALLET_ID = "#{walletId}";
     private static final String PARAM_SUCCESS_RETURN_URL = "#{success_return_url}";
     private static final String PARAM_FAIL_RETURN_URL = "#{fail_return_url}";
     private static final String PARAM_PAYMENT_ID = "#{payment_id}";
@@ -24,8 +24,8 @@ public class FormService {
     @Value("${simplex.mainNet}")
     private boolean mainNet;
 
-    @Value("${simplex.partnerName}")
-    private String partnerName;
+    @Value("${simplex.walletId}")
+    private String walletId;
 
     @Value("${simplex.successOperationUrl}")
     private String successOperationUrl;
@@ -36,7 +36,7 @@ public class FormService {
     protected String getPaymentForm(final String paymentId) {
         String htmlPage = getFormAsString();
         htmlPage = htmlPage.replace(PARAM_BASE_URL, mainNet ? SimplexConstants.MAIN_NET_FORM_URL : SimplexConstants.TEST_NET_FORM_URL);
-        htmlPage = htmlPage.replace(PARAM_PARTNER_NAME, partnerName);
+        htmlPage = htmlPage.replace(PARAM_WALLET_ID, walletId);
         htmlPage = htmlPage.replace(PARAM_SUCCESS_RETURN_URL, prepareUrl(successOperationUrl, paymentId));
         htmlPage = htmlPage.replace(PARAM_FAIL_RETURN_URL, prepareUrl(failOperationUrl, paymentId));
         htmlPage = htmlPage.replace(PARAM_PAYMENT_ID, paymentId);

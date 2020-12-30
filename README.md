@@ -26,7 +26,11 @@ simplex:
   apiKey: 'apiKey'
   walletId: 'walletId'
   partnerName: 'partnerName'
+  partnerUrl: 'partnerUrl'
+  successOperationUrl: 'successUrl'
+  failOperationUrl: 'failUrl'
 ```
+In properties `successOperationUrl` and `failOperationUrl` you can add the placeholder `{placeholder}` and the SDK will insert the paymentId there.
 
 ### Invoke methods:
 For autoconfiguration import SimplexSDKConfiguration to your Spring:

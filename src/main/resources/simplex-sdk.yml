@@ -4,3 +4,5 @@ simplex:
   walletId: 'walletId'
   partnerName: 'partnerName'
   partnerUrl: 'partnerUrl'
+  successOperationUrl: 'successUrl'
+  failOperationUrl: 'failUrl'

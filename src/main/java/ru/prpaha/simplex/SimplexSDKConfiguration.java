@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 public class SimplexSDKConfiguration {
 
     @Value("${simplex.mainNet}")
-    private Boolean mainNet;
+    private boolean mainNet;
 
     @Value("${simplex.apiKey}")
     private String simplexApiKey;

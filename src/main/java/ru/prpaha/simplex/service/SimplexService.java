@@ -21,6 +21,7 @@ public class SimplexService {
 
     private final QuoteRepository quoteRepository;
     private final PaymentRepository paymentRepository;
+    private final FormService formService;
 
     @Value("${simplex.walletId}")
     private String walletId;
@@ -30,6 +31,10 @@ public class SimplexService {
 
     @Value("${simplex.partnerUrl}")
     private String partnerUrl;
+
+    public String getPaymentForm(final String paymentId) {
+        return formService.getPaymentForm(paymentId);
+    }
 
     public GetQuoteResponse createQuote(GetQuoteRequest request) throws ApiException {
         fillWalletId(request);

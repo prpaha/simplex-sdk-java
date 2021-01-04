@@ -52,6 +52,7 @@ public class SimplexSDKConfiguration {
         apiClient.setApiKeyPrefix(SimplexConstants.API_KEY_PREFIX);
         apiClient.setApiKey(simplexApiKey);
         apiClient.setDateFormat(new SimpleDateFormat(SimplexConstants.DATE_TIME_FORMAT));
+        apiClient.setDebugging(true);
         return apiClient;
     }
 

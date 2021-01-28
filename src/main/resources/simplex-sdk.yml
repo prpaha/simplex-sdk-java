@@ -6,3 +6,4 @@ simplex:
   partnerUrl: 'partnerUrl'
   successOperationUrl: 'successUrl'
   failOperationUrl: 'failUrl'
+  debugging: true

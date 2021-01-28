@@ -7,8 +7,6 @@ import ru.prpaha.simplex.invoker.ApiException;
 import ru.prpaha.simplex.model.GetQuoteRequest;
 import ru.prpaha.simplex.model.GetQuoteResponse;
 
-import java.io.IOException;
-
 /**
  * @author Proskurin Pavel (prpaha@rambler.ru)
  */
@@ -23,14 +21,7 @@ public class QuoteRepository extends AbstractApiRepository {
 
     public GetQuoteResponse getQuote(final GetQuoteRequest request) throws ApiException {
         Call quoteCall = defaultApi.getQuoteCall(request, null);
-        String respBody;
-        try {
-            respBody = getStringBody(quoteCall.execute());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ApiException(e);
-        }
-
+        String respBody = call(quoteCall);
         return parseObject(respBody, GetQuoteResponse.class);
     }
 

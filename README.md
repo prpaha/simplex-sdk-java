@@ -29,6 +29,7 @@ simplex:
   partnerUrl: 'partnerUrl'
   successOperationUrl: 'successUrl'
   failOperationUrl: 'failUrl'
+  debugging: true
 ```
 In properties `successOperationUrl` and `failOperationUrl` you can add the placeholder `{placeholder}` and the SDK will insert the paymentId there.
 

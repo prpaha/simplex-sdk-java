@@ -5,10 +5,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.prpaha.simplex.invoker.ApiException;
+import ru.prpaha.simplex.model.Event;
+import ru.prpaha.simplex.model.Events;
 import ru.prpaha.simplex.model.GetQuoteRequest;
 import ru.prpaha.simplex.model.GetQuoteResponse;
 import ru.prpaha.simplex.model.PaymentRequest;
 import ru.prpaha.simplex.model.PaymentResponse;
+import ru.prpaha.simplex.repository.EventRepository;
 import ru.prpaha.simplex.repository.PaymentRepository;
 import ru.prpaha.simplex.repository.QuoteRepository;
 
@@ -22,6 +25,7 @@ public class SimplexService {
     private final QuoteRepository quoteRepository;
     private final PaymentRepository paymentRepository;
     private final FormService formService;
+    private final EventRepository eventRepository;
 
     @Value("${simplex.walletId}")
     private String walletId;
@@ -31,6 +35,14 @@ public class SimplexService {
 
     @Value("${simplex.partnerUrl}")
     private String partnerUrl;
+
+    public void deleteEvent(final Event event) throws ApiException {
+        eventRepository.deleteEvent(event);
+    }
+
+    public Events getEvents() throws ApiException {
+        return eventRepository.getEvents();
+    }
 
     public String getPaymentForm(final String paymentId) {
         return formService.getPaymentForm(paymentId);

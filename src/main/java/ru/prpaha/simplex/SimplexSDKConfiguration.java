@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.prpaha.simplex.api.DefaultApi;
 import ru.prpaha.simplex.invoker.ApiClient;
+import ru.prpaha.simplex.repository.EventRepository;
 import ru.prpaha.simplex.repository.PaymentRepository;
 import ru.prpaha.simplex.repository.QuoteRepository;
 
@@ -26,6 +27,9 @@ public class SimplexSDKConfiguration {
     @Value("${simplex.apiKey}")
     private String simplexApiKey;
 
+    @Value("${simplex.debugging:false}")
+    private boolean debugging;
+
     @Bean
     public DefaultApi defaultApi() {
         return new DefaultApi(createApiClient());
@@ -42,6 +46,11 @@ public class SimplexSDKConfiguration {
     }
 
     @Bean
+    public EventRepository eventRepository(DefaultApi defaultApi, Gson gson) {
+        return new EventRepository(defaultApi, gson);
+    }
+
+    @Bean
     public Gson gson() {
         return new GsonBuilder().setDateFormat(SimplexConstants.DATE_TIME_FORMAT).create();
     }
@@ -52,7 +61,7 @@ public class SimplexSDKConfiguration {
         apiClient.setApiKeyPrefix(SimplexConstants.API_KEY_PREFIX);
         apiClient.setApiKey(simplexApiKey);
         apiClient.setDateFormat(new SimpleDateFormat(SimplexConstants.DATE_TIME_FORMAT));
-        apiClient.setDebugging(true);
+        apiClient.setDebugging(debugging);
         return apiClient;
     }
 

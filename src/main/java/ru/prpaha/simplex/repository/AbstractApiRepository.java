@@ -2,7 +2,10 @@ package ru.prpaha.simplex.repository;
 
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.Call;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Value;
 import ru.prpaha.simplex.invoker.ApiException;
 
 import java.io.IOException;
@@ -12,6 +15,7 @@ import java.util.Map;
 /**
  * @author Proskurin Pavel (prpaha@rambler.ru)
  */
+@Slf4j
 @RequiredArgsConstructor
 public abstract class AbstractApiRepository {
 
@@ -19,7 +23,32 @@ public abstract class AbstractApiRepository {
 
     private final Gson gson;
 
-    protected String getStringBody(Response response) throws ApiException {
+    @Value("${simplex.debugging:false}")
+    private boolean debugging;
+
+    protected String call(Call call) throws ApiException {
+        StringBuilder logBuilder = null;
+        if (!debugging) {
+            logBuilder = new StringBuilder("Call Simplex API.");
+            logBuilder.append("\nMethod: ").append(call.request().url());
+        }
+        try {
+            String result = getStringBody(call.execute());
+            if (!debugging) {
+                logBuilder.append("\nResponse: ").append(result);
+            }
+            return result;
+        } catch (IOException e) {
+            log.error("Error on call Simplex API", e);
+            throw new ApiException(e);
+        } finally {
+            if (!debugging) {
+                log.info(logBuilder.toString());
+            }
+        }
+    }
+
+    private String getStringBody(Response response) throws ApiException {
         String respBody = null;
         try {
             if (response.isSuccessful() && response.body() != null) {

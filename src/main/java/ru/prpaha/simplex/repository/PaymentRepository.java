@@ -7,8 +7,6 @@ import ru.prpaha.simplex.invoker.ApiException;
 import ru.prpaha.simplex.model.PaymentRequest;
 import ru.prpaha.simplex.model.PaymentResponse;
 
-import java.io.IOException;
-
 /**
  * @author Proskurin Pavel (prpaha@rambler.ru)
  */
@@ -22,15 +20,8 @@ public class PaymentRepository extends AbstractApiRepository {
     }
 
     public PaymentResponse createPayment(PaymentRequest request) throws ApiException {
-        Call quoteCall = defaultApi.paymentRequestCall(request, null);
-        String respBody;
-        try {
-            respBody = getStringBody(quoteCall.execute());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new ApiException(e);
-        }
-
+        Call createPaymentCall = defaultApi.paymentRequestCall(request, null);
+        String respBody = call(createPaymentCall);
         return parseObject(respBody, PaymentResponse.class);
     }
 }

@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.prpaha.simplex.invoker.ApiException;
-import ru.prpaha.simplex.model.Event;
 import ru.prpaha.simplex.model.Events;
 import ru.prpaha.simplex.model.GetQuoteRequest;
 import ru.prpaha.simplex.model.GetQuoteResponse;
@@ -36,8 +35,8 @@ public class SimplexService {
     @Value("${simplex.partnerUrl}")
     private String partnerUrl;
 
-    public void deleteEvent(final Event event) throws ApiException {
-        eventRepository.deleteEvent(event);
+    public void deleteEvent(final String eventId) throws ApiException {
+        eventRepository.deleteEvent(eventId);
     }
 
     public Events getEvents() throws ApiException {

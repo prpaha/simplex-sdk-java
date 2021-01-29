@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import okhttp3.Call;
 import ru.prpaha.simplex.api.DefaultApi;
 import ru.prpaha.simplex.invoker.ApiException;
-import ru.prpaha.simplex.model.Event;
 import ru.prpaha.simplex.model.Events;
 
 /**
@@ -25,11 +24,11 @@ public class EventRepository extends AbstractApiRepository {
         return parseObject(respBody, Events.class);
     }
 
-    public void deleteEvent(final Event event) throws ApiException {
-        if (event == null) {
+    public void deleteEvent(final String eventId) throws ApiException {
+        if (eventId == null) {
             return;
         }
-        Call getEventsCall = defaultApi.deleteEventCall(event.getEventId(), null);
+        Call getEventsCall = defaultApi.deleteEventCall(eventId, null);
         call(getEventsCall);
     }
 }

@@ -170,7 +170,7 @@ components:
               description: The unique ID for a specific app version
             app_end_user_id:
               type: string
-              description: The end-user ID originated from the partner’s end. Same as end_user_id in the ‘GetQuote’ call
+              description: The end-user ID originated from the partner’s end. Same as end_user_id in the GetQuote call
             app_install_date:
               type: string
               description: The day the App was installed by the end-user for the first time
